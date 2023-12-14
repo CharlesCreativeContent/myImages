@@ -1,2 +1,2 @@
-# myImages : <a src="https://shawnimages.netlify.app">Visit here</a>
+# myImages : <a href="https://shawnimages.netlify.app" target="_blank">Visit here</a>
 repo to upload images
