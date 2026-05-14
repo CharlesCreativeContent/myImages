@@ -1,0 +1,9 @@
+{
+  "name": "add_me_to_picture",
+  "description": "add me to the picture",
+  "color": "linear-gradient(rgb(6,245,227), rgb(48,216,206))",
+  "iconSrc": "",
+  "schema": "[{\"id\":1,\"property\":\"image_input\",\"description\":\"user generate picture\",\"type\":\"string\",\"required\":false}]",
+  "func": "/*\n* You can use any libraries imported in Flowise\n* You can use properties specified in Input Schema as variables. Ex: Property = userid, Variable = $userid\n* You can get default flow config: $flow.sessionId, $flow.chatId, $flow.chatflowId, $flow.input, $flow.state\n* You can get custom variables: $vars.<variable-name>\n* Must return a string value at the end of function\n*/\n\nconst fetch = require('node-fetch');\nconst url = 'https://api.replicate.com/v1/models/google/nano-banana-pro/predictions';\nconst options = {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json',\n      \"Authorization\": 'Bearer '+ $vars.REPLICATE_API_KEY,\n      \"Prefer\": \"wait\",\n    },\n  body: JSON.stringify({\n    \"input\": {\n      \"prompt\": \"Here's a photo of me. can you add me to the next picture. replace a person with me or add me and make the lighting cohesive so it looks like I was in the given picture\",\n      \"image_input\": [$image_input, $vars.PROFILE_PICTURE],\n\t}\n  })\n};\ntry {\n    const response = await fetch(url, options);\n    const responseJSON = await response.json();\n    const text = responseJSON.output\n    return text;\n} catch (error) {\n    console.error(error);\n    return '';\n}",
+  "workspaceId": "c34195f1-b14e-426f-b6bf-e9f7b469e8f1"
+}
