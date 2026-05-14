@@ -17,7 +17,7 @@ const options = {
     },
   body: JSON.stringify({
     "input": {
-      "prompt": $prompt,
+      "prompt": "Here's a photo of me. can you add me to the next picture. replace a person with me or add me and make the lighting cohesive so it looks like I was in the given picture",
       "image_input": [$image_input, $vars.PROFILE_PICTURE],
 	}
   })
