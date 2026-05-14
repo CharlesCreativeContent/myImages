@@ -1,0 +1,32 @@
+/*
+* You can use any libraries imported in Flowise
+* You can use properties specified in Input Schema as variables. Ex: Property = userid, Variable = $userid
+* You can get default flow config: $flow.sessionId, $flow.chatId, $flow.chatflowId, $flow.input, $flow.state
+* You can get custom variables: $vars.<variable-name>
+* Must return a string value at the end of function
+*/
+
+const fetch = require('node-fetch');
+const url = 'https://api.replicate.com/v1/models/google/nano-banana-pro/predictions';
+const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": 'Bearer '+ $vars.REPLICATE_API_KEY,
+      "Prefer": "wait",
+    },
+  body: JSON.stringify({
+    "input": {
+      "prompt": $prompt
+	}
+  })
+};
+try {
+    const response = await fetch(url, options);
+    const responseJSON = await response.json();
+    const text = responseJSON.output
+    return text;
+} catch (error) {
+    console.error(error);
+    return '';
+}
